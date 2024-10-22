@@ -4,12 +4,17 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 // import Loader, { Spinner } from "./components/loader/Loader";
 
 function App() {
+  axios.defaults.withCredentials = true;
   return (
     <BrowserRouter>
-    {/* <Loader/> */}
+    <ToastContainer/>
+      {/* <Loader/> */}
       <Header />
       {/* <Spinner/> */}
       <Routes>

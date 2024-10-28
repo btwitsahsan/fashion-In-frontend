@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Header.module.scss";
-import { Link, NavLink } from "react-router-dom";
-import { FaShoppingCart, FaTimes } from "react-icons/fa";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { logout, RESET_AUTH } from "../../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
+import { UserName } from "../../pages/profile/Profile";
 
 export const logo = (
   <div className="logo">
@@ -18,6 +22,8 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [scrollPage, setScrollPage] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fixBar = () => {
     if (window.screenY > 50) {
@@ -44,6 +50,12 @@ const Header = () => {
       </Link>
     </span>
   );
+
+  const LogoutUser = async () => {
+    await dispatch(logout());
+    await dispatch(RESET_AUTH());
+    navigate("/login");
+  };
   return (
     <header className={scrollPage ? `${styles.fixed}` : null}>
       <div className={styles.header}>
@@ -75,15 +87,28 @@ const Header = () => {
 
           <div className={styles["header-right"]}>
             <span className={styles.links}>
-              <NavLink to="login" className={activeLink}>
-                login
-              </NavLink>
-              <NavLink to="register" className={activeLink}>
-                Register
-              </NavLink>
-              <NavLink to="order-history" className={activeLink}>
-                My Order
-              </NavLink>
+                <ShowOnLogin>
+                <NavLink to="profile" className={activeLink}>
+                  <FaUserCircle size={16} color="orange"/>
+                  <UserName/>
+                </NavLink>
+                </ShowOnLogin>
+              <ShowOnLogout>
+                <NavLink to="login" className={activeLink}>
+                  login
+                </NavLink>
+                <NavLink to="register" className={activeLink}>
+                  Register
+                </NavLink>
+              </ShowOnLogout>
+              <ShowOnLogin>
+                <NavLink to="order-history" className={activeLink}>
+                  My Order
+                </NavLink>
+                <Link to={"/"} onClick={LogoutUser}>
+                  Logout
+                </Link>
+              </ShowOnLogin>
             </span>
             {cart}
           </div>

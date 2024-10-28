@@ -45,6 +45,86 @@ export const login = createAsyncThunk(
     }
   }
 );
+// Logout User
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    return await authService.logout();
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+// checkLoginStatus
+export const checkLoginStatus = createAsyncThunk(
+  "auth/checkLoginStatus",
+  async (_, thunkAPI) => {
+    try {
+      return await authService.checkLoginStatus();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// getUser
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  async (_, thunkAPI) => {
+    try {
+      return await authService.getUser();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// updateUser
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.updateUser(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// updatePhoto
+export const updatePhoto = createAsyncThunk(
+  "auth/updatePhoto",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.updatePhoto(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -94,7 +174,93 @@ const authSlice = createSlice({
         state.message = action.payload;
         state.user = null;
         toast.error(action.payload);
-      });
+      })
+      // Logout User
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = false;
+        state.user = null;
+        toast.success(action.payload);
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      // checkLoginStatus
+      .addCase(checkLoginStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(checkLoginStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = action.payload;
+        console.log(action.payload);
+        if(action.payload.message === "invalid signature"){
+          state.isLoggedIn =false;
+        }
+      })
+      .addCase(checkLoginStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // getUser
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload)
+      })
+      // updateUser
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        toast.success("User Successfully Updated")
+        console.log(action.payload);
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // updatePhoto
+      .addCase(updatePhoto.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePhoto.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        toast.success("User Photo Successfully Updated")
+        console.log(action.payload);
+      })
+      .addCase(updatePhoto.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
   },
 });
 

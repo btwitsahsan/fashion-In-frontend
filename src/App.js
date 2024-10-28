@@ -7,11 +7,22 @@ import Register from "./pages/auth/Register";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { checkLoginStatus } from "./redux/features/auth/authSlice";
+import Profile from "./pages/profile/Profile";
 // import Loader, { Spinner } from "./components/loader/Loader";
 
 function App() {
   axios.defaults.withCredentials = true;
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(checkLoginStatus());
+  },[dispatch])
+
   return (
+    
     <BrowserRouter>
     <ToastContainer/>
       {/* <Loader/> */}
@@ -21,6 +32,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </BrowserRouter>

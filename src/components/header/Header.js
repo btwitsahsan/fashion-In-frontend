@@ -5,7 +5,7 @@ import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { logout, RESET_AUTH } from "../../redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
-import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
+import ShowOnLogin, { ShowOnAdmin, ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { UserName } from "../../pages/profile/Profile";
 
 export const logo = (
@@ -79,20 +79,20 @@ const Header = () => {
               <FaTimes size={22} color="#fff" onClick={hideMenu} />
             </li>
             <li>
-              <NavLink to="/shop" className={activeLink}>
-                Shop
+              <NavLink to="/productList" className={activeLink}>
+                All Products
               </NavLink>
             </li>
           </ul>
 
           <div className={styles["header-right"]}>
             <span className={styles.links}>
-                <ShowOnLogin>
+              <ShowOnLogin>
                 <NavLink to="profile" className={activeLink}>
-                  <FaUserCircle size={16} color="orange"/>
-                  <UserName/>
+                  <FaUserCircle size={16} color="orange" />
+                  <UserName />
                 </NavLink>
-                </ShowOnLogin>
+              </ShowOnLogin>
               <ShowOnLogout>
                 <NavLink to="login" className={activeLink}>
                   login
@@ -101,6 +101,11 @@ const Header = () => {
                   Register
                 </NavLink>
               </ShowOnLogout>
+              <ShowOnAdmin>
+                <NavLink to="/admin/dashboard" className={activeLink}>
+                  Dashboard
+                </NavLink>
+                </ShowOnAdmin>
               <ShowOnLogin>
                 <NavLink to="order-history" className={activeLink}>
                   My Order

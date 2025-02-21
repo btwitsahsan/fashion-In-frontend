@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, isLoggedIn, isSuccess } = useSelector(
+  const { isLoading, user, isLoggedIn, isSuccess } = useSelector(
     (state) => state.auth
   );
 
@@ -29,11 +29,17 @@ const Login = () => {
       await dispatch(login(userData));
   };
   useEffect(()=>{
-    if(isSuccess && isLoggedIn){
-      navigate("/")
+
+    if (user && isLoggedIn && isSuccess) {
+      if (user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     }
+  
     dispatch(RESET_AUTH());
-  }, [isLoggedIn, isSuccess, navigate, dispatch])
+  }, [user, isLoggedIn, isSuccess, navigate, dispatch])
   return (
     <>
     {isLoading && <Loader/>}

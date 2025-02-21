@@ -6,33 +6,72 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkLoginStatus } from "./redux/features/auth/authSlice";
 import Profile from "./pages/profile/Profile";
+import { AdminRoute } from "./components/hiddenLink/hiddenLink";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminLayout from "./pages/admin/AdminLayout";
+import ManageUsers from "./pages/admin/ManageUsers";
+import ManageProducts from "./pages/admin/ManageProducts";
+import ManageOrders from "./pages/admin/ManageOrders";
+import CreateProduct from "./pages/admin/products/CreateProduct";
+import { dashboard, getProducts } from "./redux/features/product/productSlice";
+import EditProduct from "./pages/admin/products/EditProduct";
+import ProductLayout from "./pages/products/ProductLayout";
+import ProductList from "./pages/products/ProductList";
 // import Loader, { Spinner } from "./components/loader/Loader";
 
 function App() {
   axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  const {user} = useSelector((state) => state.auth); 
+
+  useEffect(() => {
     dispatch(checkLoginStatus());
-  },[dispatch])
+  }, [dispatch]);
+
+  
+  useEffect(() => {
+     dispatch(getProducts());
+  }, [dispatch]);
+  
+
 
   return (
-    
     <BrowserRouter>
-    <ToastContainer/>
+      <ToastContainer />
       {/* <Loader/> */}
       <Header />
       {/* <Spinner/> */}
       <Routes>
+        {/* <Route element={}> */}
+
         <Route path="/" element={<Home />} />
+        {/* </Route> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route element={<ProductLayout/>}>
+        <Route path="/productList" element={<ProductList />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        {/* <Route path="/productList" element={<ProductList />} /> */}
+        </Route>
+        <Route element={<AdminRoute />}>
+        {/* <Route path="/" element={<Home />} /> */}
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/products" element={<ManageProducts />} />
+            <Route path="/admin/orders" element={<ManageOrders />} />
+            <Route path="/admin/createProduct" element={<CreateProduct />} />
+            <Route path="/editProduct/:id" element={<EditProduct />} />
+
+          </Route>
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -199,8 +199,8 @@ const authSlice = createSlice({
       .addCase(checkLoginStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.isLoggedIn = action.payload;
-        console.log(action.payload);
+        state.isLoggedIn = action.payload.success;
+        state.user = action.payload.user;
         if(action.payload.message === "invalid signature"){
           state.isLoggedIn =false;
         }

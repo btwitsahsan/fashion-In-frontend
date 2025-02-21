@@ -83,7 +83,8 @@ const Profile = () => {
     e.preventDefault();
     let imageURL;
     try {
-        if(profileImage !== null && (profileImage.type === "image/jpg" || profileImage.type === 'image/png' || profileImage.type === 'image/jpeg')){
+        
+      if(profileImage !== null && (profileImage.type === "image/jpg" || profileImage.type === 'image/png' || profileImage.type === 'image/jpeg')){
             const image = new FormData()
             image.append("file", profileImage)
             image.append("cloud_name", cloud_name)
@@ -92,7 +93,7 @@ const Profile = () => {
             // save image to cloudinary
             const response = await fetch(url, {method: "post", body: image})
             const imgData = await response.json()
-            console.log(imgData)
+            // console.log(imgData)
             imageURL = imgData.url.toString();
         }
 

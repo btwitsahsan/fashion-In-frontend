@@ -102,10 +102,11 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .pageHeading {
-    font-weight: 300;
-    font-size: 1.8rem;
-  }
+}
+.pageHeading {
+  font-weight: 300;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
 }
 
 // ------------------horizontal Line css----------------------

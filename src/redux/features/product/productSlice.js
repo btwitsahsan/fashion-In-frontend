@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   products: [],
+  product: "",
   count: 0,
   isError: false,
   isLoading: false,

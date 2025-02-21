@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { logout, RESET_AUTH } from "../../redux/features/auth/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ShowOnLogin, { ShowOnAdmin, ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { UserName } from "../../pages/profile/Profile";
 
@@ -22,6 +22,7 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [scrollPage, setScrollPage] = useState(false);
+  const {totalQuantity} = useSelector((state)=> state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +47,7 @@ const Header = () => {
       <Link to="/cart">
         Cart
         <FaShoppingCart size={20} />
-        <p>0</p>
+        <p>{totalQuantity}</p>
       </Link>
     </span>
   );

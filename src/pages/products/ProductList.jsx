@@ -3,10 +3,11 @@ import ProductCard from '../../components/products/ProductCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getProducts } from '../../redux/features/product/productSlice'
+import Loader, { Spinner } from '../../components/loader/Loader'
 
 const ProductList = () => {
   const {category} = useParams();
-  const { products } = useSelector((state) => state.product);
+  const { products, isLoading } = useSelector((state) => state.product);
 const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -17,6 +18,8 @@ const dispatch = useDispatch();
       dispatch(getProducts(category));
     }
   },[category, dispatch])
+
+  if(isLoading) return <Spinner/>
 
   return (
     <>

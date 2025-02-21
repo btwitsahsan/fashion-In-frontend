@@ -64,9 +64,17 @@ header {
       }
       p {
         position: absolute;
-        top: -1rem;
-        right: -0.5rem;
-        font-weight: 500;
+    top: -0.8rem;
+    right: -0.9rem;
+    font-weight: 500;
+    border-radius: 50%;
+    background-color: orangered;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-small;
       }
     }
 

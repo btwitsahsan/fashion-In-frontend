@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkLoginStatus } from "./redux/features/auth/authSlice";
 import Profile from "./pages/profile/Profile";
-import { AdminRoute } from "./components/hiddenLink/hiddenLink";
+import { AdminRoute, MainRoute } from "./components/hiddenLink/hiddenLink";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLayout from "./pages/admin/AdminLayout";
 import ManageUsers from "./pages/admin/ManageUsers";
@@ -22,6 +22,9 @@ import { dashboard, getProducts } from "./redux/features/product/productSlice";
 import EditProduct from "./pages/admin/products/EditProduct";
 import ProductLayout from "./pages/products/ProductLayout";
 import ProductList from "./pages/products/ProductList";
+import ProductDetail from "./components/products/productDetails/ProductDetail";
+import Cart from "./components/products/cart/Cart";
+import Checkout from "./pages/checkout/Checkout";
 // import Loader, { Spinner } from "./components/loader/Loader";
 
 function App() {
@@ -49,7 +52,7 @@ function App() {
       {/* <Spinner/> */}
       <Routes>
         {/* <Route element={}> */}
-
+<Route element={<MainRoute/>}>
         <Route path="/" element={<Home />} />
         {/* </Route> */}
         <Route path="/login" element={<Login />} />
@@ -58,8 +61,12 @@ function App() {
         <Route element={<ProductLayout/>}>
         <Route path="/productList" element={<ProductList />} />
         <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/productDetail/:id" element={<ProductDetail />} />
         {/* <Route path="/productList" element={<ProductList />} /> */}
         </Route>
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+
         <Route element={<AdminRoute />}>
         {/* <Route path="/" element={<Home />} /> */}
           <Route element={<AdminLayout />}>
@@ -69,8 +76,8 @@ function App() {
             <Route path="/admin/orders" element={<ManageOrders />} />
             <Route path="/admin/createProduct" element={<CreateProduct />} />
             <Route path="/editProduct/:id" element={<EditProduct />} />
-
           </Route>
+        </Route>
         </Route>
       </Routes>
       <Footer />

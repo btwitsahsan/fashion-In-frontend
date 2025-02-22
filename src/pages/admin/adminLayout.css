@@ -100,6 +100,22 @@
   tr:hover {
     background-color: #f1f1f1;
   }
+
+
+  select {
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .nameEmail span:nth-child(1){
+  color: orangered;
+  font-weight: 600;
+  
+  }
+  .nameEmail span:nth-child(3){
+    color: gray;
+    font-size: 12px;
+  }
   
   /* Buttons */
   /* .btn {

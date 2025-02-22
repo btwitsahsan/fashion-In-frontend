@@ -108,8 +108,8 @@ const Header = () => {
                 </NavLink>
                 </ShowOnAdmin>
               <ShowOnLogin>
-                <NavLink to="order-history" className={activeLink}>
-                  My Order
+                <NavLink to="/my-orders" className={activeLink}>
+                  My Orders
                 </NavLink>
                 <Link to={"/"} onClick={LogoutUser}>
                   Logout

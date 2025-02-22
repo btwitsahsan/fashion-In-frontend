@@ -25,24 +25,22 @@ import ProductList from "./pages/products/ProductList";
 import ProductDetail from "./components/products/productDetails/ProductDetail";
 import Cart from "./components/products/cart/Cart";
 import Checkout from "./pages/checkout/Checkout";
+import MyOrders from "./pages/myOrders/MyOrders";
 // import Loader, { Spinner } from "./components/loader/Loader";
 
 function App() {
   axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
 
-  const {user} = useSelector((state) => state.auth); 
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(checkLoginStatus());
   }, [dispatch]);
 
-  
   useEffect(() => {
-     dispatch(getProducts());
+    dispatch(getProducts());
   }, [dispatch]);
-  
-
 
   return (
     <BrowserRouter>
@@ -51,33 +49,34 @@ function App() {
       <Header />
       {/* <Spinner/> */}
       <Routes>
-        {/* <Route element={}> */}
-<Route element={<MainRoute/>}>
-        <Route path="/" element={<Home />} />
-        {/* </Route> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route element={<ProductLayout/>}>
-        <Route path="/productList" element={<ProductList />} />
-        <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/productDetail/:id" element={<ProductDetail />} />
-        {/* <Route path="/productList" element={<ProductList />} /> */}
-        </Route>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-
-        <Route element={<AdminRoute />}>
-        {/* <Route path="/" element={<Home />} /> */}
-          <Route element={<AdminLayout />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<ManageUsers />} />
-            <Route path="/admin/products" element={<ManageProducts />} />
-            <Route path="/admin/orders" element={<ManageOrders />} />
-            <Route path="/admin/createProduct" element={<CreateProduct />} />
-            <Route path="/editProduct/:id" element={<EditProduct />} />
+        <Route element={<MainRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* --------------- Product Routes------------------------- */}
+          <Route element={<ProductLayout />}>
+            <Route path="/productList" element={<ProductList />} />
+            <Route path="/products/:category" element={<ProductList />} />
+            <Route path="/productDetail/:id" element={<ProductDetail />} />
           </Route>
-        </Route>
+          {/* --------------------------------- */}
+
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+
+          {/* --------------- Admin Routes---------------------------- */}
+          <Route element={<AdminRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<ManageUsers />} />
+              <Route path="/admin/products" element={<ManageProducts />} />
+              <Route path="/admin/orders" element={<ManageOrders />} />
+              <Route path="/admin/createProduct" element={<CreateProduct />} />
+              <Route path="/editProduct/:id" element={<EditProduct />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
       <Footer />

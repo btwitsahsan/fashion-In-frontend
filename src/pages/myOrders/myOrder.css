@@ -1,0 +1,76 @@
+.orders-container {
+    max-width: 60%;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h4 {
+    text-align: right;
+  }
+  
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .order-card {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+  }
+  .statusP{
+    margin: 10px 0px;
+  }
+  .status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .status.processing {
+    background: orange;
+    color: white;
+  }
+  
+  .status.shipped {
+    background: blue;
+    color: white;
+  }
+  
+  .status.delivered {
+    background: green;
+    color: white;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  
